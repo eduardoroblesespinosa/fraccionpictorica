@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+  <!-- Styles -->
+  <style>
+    #chartdiv {
+      width: 100%;
+      height: 500px;
+    }
+  </style>
+  <!-- Resources -->
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+
+  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+  <!-- Chart code -->
+  <script>
+am4internal_webpackJsonp(["f6f5"],{JjGr:function(e,t,c){"use strict";Object.defineProperty(t,"__esModule",{value:!0});
+    var s=c("aCit"),i=c("8ZqG"),n=function(e){Object(s.b)(e,"ColorSet")&&(e.list=[Object(i.c)("#213047"),Object(i.c)("#ff0000"),Object(i.c)("#d5433d"),Object(i.c)("#f05440")],e.reuse=!1,e.stepOptions={lightness:.05,hue:0},e.passOptions={})};window.am4themes_dataviz=n}},["JjGr"]);
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_dataviz);
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var iconPath = "m 2278.229,0 -305.067,64.174 0,120.286 305.067,-56.812 0,-127.648 z m 31.961,0 0,130.467 234.141,53.652 0,-122.404 L 2310.19,0 Z m -53.689,174.297 -239.167,37.869 0,432.77 239.167,225.488 0,-696.127 z m 32.142,3.591 0,697.187 214.033,15.083 0,-664.579 -214.033,-47.691 z M 693.094,246.623 0,1319.768 1678.866,1259.095 693.094,246.623 Z m 51.53,0 998.341,1004.41 1550.841,68.375 -560.759,-833.255 -196.435,-23.504 0,426.809 c 0,9.516 -3.594,18.781 -10.776,25.245 -5.382,5.746 -14.364,9.158 -23.16,9.158 l -3.594,0 -246.171,-19.644 c 0,0 0,0 -1.798,0 l -3.59,0 c 0,-0.18 -1.794,0 -3.592,-1.795 0,0 -1.796,0 -1.796,-1.796 0,0 -1.794,-1.795 -3.588,-1.795 0,0 0,0 -1.8,-1.796 l -1.794,-2.514 c 0,0 0,0 0,-1.795 L 1995.785,667.237 c -7.182,-6.464 -10.776,-15.262 -10.776,-24.545 l 0,-249.011 -1237.87,-149.392 z m 3341.03,174.656 -1255.107,71.536 527.183,826.593 387.126,0 340.798,-898.129 z m 36.453,0 -341.881,903.049 64.462,0 0,1617.7612 569.2,-265.8172 0,-1350.902 52.251,0 -344.032,-904.091 z m -2443.241,880.605 -1620.149,65.574 0,1155.5437 1620.149,833.9737 0,-2055.0914 z m 64.46,0 0,2098.2211 1550.842,-576.2009 0,-1470.4692 -1550.842,-51.551 z m 1614.404,58.912 0,1442.0643 422.496,109.7818 0,-1547.9851 -422.496,-3.771 z m 934.238,149.393 0,1118.0335 -294.657,113.624 0,-1231.2985 294.657,0 z m -4071.289,83.117 318.354,10.953 0,182.018 -318.354,-32.267 0,-160.614 z m 3936.979,11.132 -43.81,87.319 43.81,78.557 42.733,-87.66 -42.733,-78.216 z m -3316.251,13.647 525.028,9.516 0,243.031 -525.028,-53.651 0,-198.842 z m 2015.715,25.946 0,206.922 -571.175,46.29 0,-240.93 571.175,-12.21 z m -2636.443,156.412 318.354,34.727 0,369.278 -318.354,-98.541 0,-305.464 z m 620.728,68.035 525.028,57.512 0,529.5699 -525.028,-162.0329 0,-425.049 z m 2015.715,38.928 0,418.387 -571.175,125.9061 0,-493.4421 571.175,-50.851 z m -2837.729,659.3179 0,109.0635 2454.914,1425.5981 0,-232.5092 L 19.393,2566.7239 Z m 4770.848,95.399 -2245.91,1200.0739 0,227.9661 2245.91,-1309.8551 0,-118.1849 z"
+
+var chart = am4core.create("chartdiv", am4charts.SlicedChart);
+chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
+chart.paddingLeft = 150;
+
+chart.data = [{
+    "name": "Otros",
+    "value": 40,
+    "disabled":true
+}, {
+    "name": "Monarca",
+    "value": 60
+}];
+
+var series = chart.series.push(new am4charts.PictorialStackedSeries());
+series.dataFields.value = "value";
+series.dataFields.category = "name";
+series.alignLabels = true;
+// this makes only A label to be visible
+series.labels.template.propertyFields.disabled = "disabled";
+series.ticks.template.propertyFields.disabled = "disabled";
+
+
+series.maskSprite.path = iconPath;
+series.ticks.template.locationX = 1;
+series.ticks.template.locationY = 0;
+
+series.labelsContainer.width = 100;
+
+chart.legend = new am4charts.Legend();
+chart.legend.position = "top";
+chart.legend.paddingRight = 160;
+chart.legend.paddingBottom = 40;
+let marker = chart.legend.markers.template.children.getIndex(0);
+chart.legend.markers.template.width = 40;
+chart.legend.markers.template.height = 40;
+marker.cornerRadius(20,20,20,20);
+
+}); // end am4core.ready()
+  </script>
+</head>
+<body>
+  <h2 style="text-align:center">Remodelaciones en 2021</h2>
+
+  <!-- HTML -->
+  <div id="chartdiv"></div>
+
+</body>
+</html>
